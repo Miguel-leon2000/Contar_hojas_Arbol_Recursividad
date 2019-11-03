@@ -158,15 +158,30 @@ class BinarySearchTree:
             str = str + " " + x.getLabel().__str__()
         return str
 
-
 def InPreOrder(curr_node):
     nodeList = []
+    contador = 0
+
     if curr_node is not None:
         nodeList = nodeList + InPreOrder(curr_node.getLeft())
         nodeList.insert(0, curr_node.getLabel())
         nodeList = nodeList + InPreOrder(curr_node.getRight())
+
     return nodeList
 
+def contarHojas(curr_node):
+    contador = 0
+
+    if curr_node is not None:
+        print("Nodo actual: ", curr_node)
+        if (curr_node.getRight == None and curr_node.getLeft == None):
+            contador += 1
+        print("Evaluando nodo izquierdo: ", curr_node.getLeft())
+        contador += contarHojas(curr_node.getLeft())
+        print("Evaluando nodo izquierdo: ", curr_node.getRight())
+        contador += contarHojas(curr_node.getLeft())
+
+    return contador
 
 # Función para probar las clases
 def testBinarySearchTree():
@@ -189,6 +204,7 @@ def testBinarySearchTree():
     '''
     # Instancia del árbol binario de búsqueda
     t = BinarySearchTree()
+
     # Insertamos los elementos
     t.insert(8)
     t.insert(3)
@@ -202,20 +218,6 @@ def testBinarySearchTree():
 
     print(t.__str__())
 
-    if (t.getNode(6) is not None):
-        print("El elemento 6 existe")
-    else:
-        print("El elemento 6 no existe")
-
-    if (t.getNode(-1) is not None):
-        print("El elemento -1 existe")
-    else:
-        print("El elemento -1 no existe")
-
-    if (not t.empty()):
-        print(("Valor Max: ", t.getMax().getLabel()))
-        print(("Valor Min: ", t.getMin().getLabel()))
-
     t.delete(13)
     t.delete(10)
     t.delete(8)
@@ -228,6 +230,17 @@ def testBinarySearchTree():
     for x in list:
         print(x)
 
+def main():
+    t = BinarySearchTree()
+    t.insert(3)
+    t.insert(5)
+    t.insert(9)
+    t.insert(4)
+    t.insert(7)
+    list = t.traversalTree(InPreOrder, t.root)
+    hojas = t.traversalTree(contarHojas, t.root)
+    print(list)
+    print(hojas)
 
 if __name__ == "__main__":
-    testBinarySearchTree()
+    main()
