@@ -169,12 +169,24 @@ def InPreOrder(curr_node):
 
     return nodeList
 
+"""
+Se crea la clase que permite contar las hojas de un arbol.
+"""
 def contarHojas(curr_node):
-    contador = 0
-    if curr_node is not None:
-        print("Nodo actual: ",curr_node)
+    contador = 0 #El contador comienza a partir de 0, ya que este nos mostrara la cantidad de hojas
+    if curr_node is not None: #Se agrega una condicion, cuando el nodo no esta vacio
+        print("Nodo actual: ",curr_node) #Se imprime el nodo actual
+
+        """
+        Se agrega la condicion de que si el nodo izquierdo y el nodo derecho estan vacios se
+        aumenta el contador +1
+        """
         if curr_node.getRight() == None and curr_node.getLeft() == None:
             contador += 1
+
+        """
+        Se evaluan ambos nodos para contar sus hojas respectivas
+        """
         print("Evaluando nodo izquierdo: ", curr_node.getLeft())
         contador += contarHojas(curr_node.getLeft())
         print("Evaluando nodo derecho: ", curr_node.getRight())
